@@ -123,8 +123,6 @@ def _build_enterprise_emails_from_eid_list(eid_list_of_bench_candidates):
 def _send_reminder_email_to_bench_candidates(email_list_of_bench_candidates):
     _send_email_using_email_address(email_list_of_bench_candidates)
 
-    # _send_email_using_outlook(email_list_of_bench_candidates)
-
 
 # Function to send reminder E-Mails using a given email address
 

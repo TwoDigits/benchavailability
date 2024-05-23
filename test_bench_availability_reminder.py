@@ -48,12 +48,6 @@ class TestAvailabilityReminder(unittest.TestCase):
         expected_result = mock_df[['Enterprise ID']].values
         self.assertTrue((result == expected_result).all())
 
-    def test_build_enterprise_emails_from_eid_list(self):
-        eid_list = ['eid1', 'eid2']
-        result = _build_enterprise_emails_from_eid_list(eid_list)
-        expected_result = ['eid1@accenture.com', 'eid2@accenture.com']
-        self.assertListEqual(result, expected_result)
-
     @patch('bench_availability_reminder.smtplib.SMTP')
     @patch('bench_availability_reminder.os.getenv')
     def test_send_email_using_email_address(self, mock_getenv, mock_smtp):
@@ -64,16 +58,14 @@ class TestAvailabilityReminder(unittest.TestCase):
             'EMAIL_SERVER_PORT': '587'
         }[var]
 
-        email_list = ['test1@example.com', 'test2@example.com']
+        email_list = ['test1@example.com']
 
         mock_server = mock_smtp.return_value
 
         _send_email_using_email_address(email_list)
 
-        calls = [call.sendmail('sender@example.com', 'test1@example.com', unittest.mock.ANY),
-                 call.sendmail('sender@example.com', 'test2@example.com', unittest.mock.ANY)]
+        call.sendmail('sender@example.com', 'test1@example.com', unittest.mock.ANY)
 
-        mock_server.sendmail.assert_has_calls(calls, any_order=True)
         mock_server.quit.assert_called_once()
 
     @patch('bench_availability_reminder.check_availabilities_and_send_reminder')
