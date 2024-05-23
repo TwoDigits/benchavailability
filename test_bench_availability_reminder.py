@@ -14,21 +14,21 @@ from bench_availability_reminder import (
 
 class TestAvailabilityReminder(unittest.TestCase):
 
-    @patch('module_name.glob.glob')
+    @patch('bench_availability_reminder.glob.glob')
     def test_fetch_source_folder(self, mock_glob):
         mock_glob.return_value = ['list1.xlsx', 'list2.xlsx']
         result = _fetch_source_folder('fake/url')
         self.assertEqual(result, ['list1.xlsx', 'list2.xlsx'])
         mock_glob.assert_called_once_with('fake/url/*.xlsx')
 
-    @patch('module_name.glob.glob')
+    @patch('bench_availability_reminder.glob.glob')
     def test_pickup_latest_availability_list(self, mock_glob):
         all_lists = ['20230101_list.xlsx', '20230201_list.xlsx', '20230301_list.xlsx']
         mock_glob.side_effect = [['20230301_list.xlsx']]
         result = _pickup_latest_availability_list('fake/url', all_lists)
         self.assertEqual(result, '20230301_list.xlsx')
 
-    @patch('module_name.pd.read_excel')
+    @patch('pandas.read_excel')
     def test_read_availability_list(self, mock_read_excel):
         mock_df = pd.DataFrame({
             'Org Level 8': ['Full-Stack Development', 'Other'],
@@ -49,13 +49,13 @@ class TestAvailabilityReminder(unittest.TestCase):
         self.assertTrue((result == expected_result).all())
 
     def test_build_enterprise_emails_from_eid_list(self):
-        eid_list = ['eid1', 'eid2']
+        eid_list = [['eid1'], ['eid2']]
         result = _build_enterprise_emails_from_eid_list(eid_list)
         expected_result = ['eid1@accenture.com', 'eid2@accenture.com']
         self.assertListEqual(result, expected_result)
 
-    @patch('module_name.smtplib.SMTP')
-    @patch('module_name.os.getenv')
+    @patch('bench_availability_reminder.smtplib.SMTP')
+    @patch('bench_availability_reminder.os.getenv')
     def test_send_email_using_email_address(self, mock_getenv, mock_smtp):
         mock_getenv.side_effect = lambda var: {
             'SENDER_EMAIL_ADDRESS': 'sender@example.com',
@@ -76,8 +76,8 @@ class TestAvailabilityReminder(unittest.TestCase):
         mock_server.sendmail.assert_has_calls(calls, any_order=True)
         mock_server.quit.assert_called_once()
 
-    @patch('module_name.check_availabilities_and_send_reminder')
-    @patch('module_name.os.getenv')
+    @patch('bench_availability_reminder.check_availabilities_and_send_reminder')
+    @patch('bench_availability_reminder.os.getenv')
     def test_main(self, mock_getenv, mock_check_availabilities):
         mock_getenv.return_value = 'fake/url'
 
