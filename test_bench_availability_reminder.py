@@ -49,7 +49,7 @@ class TestAvailabilityReminder(unittest.TestCase):
         self.assertTrue((result == expected_result).all())
 
     def test_build_enterprise_emails_from_eid_list(self):
-        eid_list = [['eid1'], ['eid2']]
+        eid_list = ['eid1', 'eid2']
         result = _build_enterprise_emails_from_eid_list(eid_list)
         expected_result = ['eid1@accenture.com', 'eid2@accenture.com']
         self.assertListEqual(result, expected_result)
