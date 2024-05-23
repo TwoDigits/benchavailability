@@ -6,7 +6,6 @@ from bench_availability_reminder import (
     _pickup_latest_availability_list,
     _read_availability_list,
     _get_eid_list_of_bench_candidates,
-    _build_enterprise_emails_from_eid_list,
     _send_email_using_email_address,
     main
 )
