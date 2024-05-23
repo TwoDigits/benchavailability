@@ -97,8 +97,8 @@ def _read_availability_list(latest_list_item):
     logging.info("Reading availability list and retrieving only bench candidates ...")
     candidates_df = pd.read_excel(latest_list_item)
     filtered_df = candidates_df.loc[
-        (candidates_df[ORG_LEVEL_COLUMN_NAME] == ORG_LEVEL_COLUMN_FILTER_VALUE) &
-        (candidates_df[AVAILABILITY_STATUS_COLUMN_NAME].isin(AVAILABILITY_STATUS_COLUMN_FILTER_VALUES))
+        (candidates_df[ORG_LEVEL_COLUMN_NAME] == ORG_LEVEL_COLUMN_FILTER_VALUE)
+        & (candidates_df[AVAILABILITY_STATUS_COLUMN_NAME].isin(AVAILABILITY_STATUS_COLUMN_FILTER_VALUES))
     ]
     logging.info("Returning bench candidates")
     return filtered_df

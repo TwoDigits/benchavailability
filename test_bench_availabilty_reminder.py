@@ -2,14 +2,14 @@ import unittest
 from unittest.mock import patch, call
 import pandas as pd
 from bench_availability_reminder import (
-     _fetch_source_folder,
-     _pickup_latest_availability_list,
-     _read_availability_list,
-     _get_eid_list_of_bench_candidates,
-     _build_enterprise_emails_from_eid_list,
-     _send_email_using_email_address,
-     main
- )
+    _fetch_source_folder,
+    _pickup_latest_availability_list,
+    _read_availability_list,
+    _get_eid_list_of_bench_candidates,
+    _build_enterprise_emails_from_eid_list,
+    _send_email_using_email_address,
+    main
+    )
 
 
 class TestAvailabilityReminder(unittest.TestCase):
