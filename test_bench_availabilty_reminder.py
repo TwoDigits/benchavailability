@@ -9,7 +9,7 @@ from bench_availability_reminder import (
     _build_enterprise_emails_from_eid_list,
     _send_email_using_email_address,
     main
-    )
+)
 
 
 class TestAvailabilityReminder(unittest.TestCase):

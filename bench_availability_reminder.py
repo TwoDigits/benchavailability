@@ -2,7 +2,6 @@ import pandas as pd
 import glob
 import os
 from pathlib import Path
-from appscript import app, k
 import numpy as np
 import logging
 import smtplib
@@ -97,8 +96,7 @@ def _read_availability_list(latest_list_item):
     logging.info("Reading availability list and retrieving only bench candidates ...")
     candidates_df = pd.read_excel(latest_list_item)
     filtered_df = candidates_df.loc[
-        (candidates_df[ORG_LEVEL_COLUMN_NAME] == ORG_LEVEL_COLUMN_FILTER_VALUE)
-        & (candidates_df[AVAILABILITY_STATUS_COLUMN_NAME].isin(AVAILABILITY_STATUS_COLUMN_FILTER_VALUES))
+        (candidates_df[ORG_LEVEL_COLUMN_NAME] == ORG_LEVEL_COLUMN_FILTER_VALUE) & (candidates_df[AVAILABILITY_STATUS_COLUMN_NAME].isin(AVAILABILITY_STATUS_COLUMN_FILTER_VALUES))
     ]
     logging.info("Returning bench candidates")
     return filtered_df
@@ -165,34 +163,6 @@ def _send_email_using_email_address(email_list_of_bench_candidates):
             # Close the connection
             server.quit()
 
-
-# Function to send reminder E-Mails using Outlook
-# Note: This function can only be used for local testing purposes!
-# For production, use the function '_send_email_using_email_address' instead
-
-
-def _send_email_using_outlook(email_list_of_bench_candidates):
-    logging.info("Sending reminder E-Mails to bench candidates ...")
-    outlook = app('Microsoft Outlook')
-    for email in email_list_of_bench_candidates:
-        msg = outlook.make(
-            new=k.outgoing_message,
-            with_properties={
-                k.subject: EMAIL_SUBJECT,
-                k.plain_text_content: EMAIL_TEXT_CONTENT
-            })
-        msg.make(
-            new=k.recipient,
-            with_properties={
-                k.email_address: {
-                    k.name: email,
-                    k.address: email
-                }
-            })
-        msg.open()
-        # Uncomment the following line to send the emails
-        # msg.send()
-        logging.info(f"Reminder E-Mail sent to: {email}")
 
 # Main function
 
