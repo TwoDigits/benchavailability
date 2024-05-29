@@ -16,9 +16,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m venv venv
-          source venv/bin/activate
-          pip install flake8
+          python -m pip install --upgrade pip flake8
 
       - name: Lint code
         run: |
@@ -40,9 +38,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m venv venv
-          source venv/bin/activate
-          pip install -r requirements.txt
+          python -m pip install --upgrade pip -r requirements.txt
 
       - name: Run tests
         run: python -m unittest test_bench_availability_reminder.py
@@ -63,10 +59,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m venv venv
-          source venv/bin/activate
-          pip install --upgrade pip
-          pip install -r requirements.txt
+          python -m pip install --upgrade pip -r requirements.txt
 
       - name: Run script
         run: python bench_availability_reminder.py
