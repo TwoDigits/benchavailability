@@ -21,7 +21,8 @@ jobs:
           pip install flake8
 
       - name: Lint code
-        run: flake8 --ignore=E501 --exclude=venv,.venv .
+        run: |
+          flake8 --ignore=E501 --exclude=venv,.venv .
 
     continue-on-error: true
 
